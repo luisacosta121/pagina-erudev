@@ -60,28 +60,28 @@ export default function Footer({ setPage }) {
             <h4 className="text-white font-semibold mb-4">Servicios</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <button 
-                  onClick={() => setPage("home")}
+                <a 
+                  href="#servicios"
                   className="text-gray-400 hover:text-blue-400 transition"
                 >
                   Software Industrial
-                </button>
+                </a>
               </li>
               <li>
-                <button 
-                  onClick={() => setPage("home")}
+                <a 
+                  href="#servicios"
                   className="text-gray-400 hover:text-blue-400 transition"
                 >
                   Desarrollo Web & Apps
-                </button>
+                </a>
               </li>
               <li>
-                <button 
-                  onClick={() => setPage("home")}
+                <a 
+                  href="#servicios"
                   className="text-gray-400 hover:text-blue-400 transition"
                 >
                   Consultoría
-                </button>
+                </a>
               </li>
             </ul>
           </div>

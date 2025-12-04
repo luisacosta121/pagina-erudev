@@ -11,6 +11,7 @@ export default function Navbar({ setPage }) {
   const handleLogoClick = () => {
     setPage("home");
     setMobileMenuOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -36,10 +37,6 @@ export default function Navbar({ setPage }) {
             <a 
               key={item.label}
               href={item.href}
-              onClick={(e) => {
-                e.preventDefault();
-                setPage("home");
-              }}
               className="px-5 py-2.5 text-gray-300 hover:text-blue-400 transition font-medium
               border border-gray-700/50 rounded-lg hover:border-blue-500/50 hover:bg-blue-500/5"
             >
@@ -52,10 +49,6 @@ export default function Navbar({ setPage }) {
         <div className="hidden md:flex">
           <a
             href="#contacto"
-            onClick={(e) => {
-              e.preventDefault();
-              setPage("home");
-            }}
             className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-2.5 rounded-xl font-semibold 
             hover:from-blue-500 hover:to-blue-600 hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-0.5 
             transition-all duration-300"

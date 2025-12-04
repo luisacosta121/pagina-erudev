@@ -1,13 +1,13 @@
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-40 pt-32 overflow-hidden">
+    <section className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-20 pt-32 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           
           {/* Contenido */}
           <div className="space-y-6 animate-slideInLeft">
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full">
-              <span className="text-blue-400 text-lg font-semibold">Transformación Digital para Industria</span>
+              <span className="text-blue-400 text-lg font-semibold">Transformación Digital para Industrias</span>
             </div>
 
             <h1 className="text-6xl font-bold text-white leading-tight">
@@ -15,7 +15,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-xl text-gray-300 leading-relaxed">
-              Impulsamos tu negocio con tecnología: desarrollamos aplicaciones industriales a medida para mejorar procesos, reducir costos y aumentar la eficiencia operativa. Además, diseñamos páginas web modernas, rápidas y profesionales para que tu empresa destaque y atraiga más clientes. Soluciones integrales para que puedas enfocarte en crecer.
+              Impulsamos tu negocio con tecnología. Desarrollamos aplicaciones industriales a medida para mejorar procesos, reducir costos y aumentar la eficiencia operativa. Además, diseñamos páginas web modernas, rápidas y profesionales para que tu empresa destaque y atraiga más clientes. Soluciones integrales para que puedas enfocarte en crecer.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">

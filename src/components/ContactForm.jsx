@@ -5,11 +5,31 @@ export default function ContactForm() {
   const [enviado, setEnviado] = useState(false);
 
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    
+    // Validación para el nombre: solo letras y espacios, máximo 30 caracteres
+    if (name === "nombre") {
+      // Remover caracteres no válidos
+      let onlyLetters = value.replace(/[^a-záéíóúàèìòùäëïöüñ\s]/gi, "");
+      // Remover espacios consecutivos
+      onlyLetters = onlyLetters.replace(/\s{2,}/g, " ");
+      // Limitar a 30 caracteres
+      onlyLetters = onlyLetters.slice(0, 30);
+      setForm({ ...form, [name]: onlyLetters });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    
+    // Validar que el nombre tenga mínimo 3 caracteres
+    if (form.nombre.trim().length < 3) {
+      alert("El nombre debe tener mínimo 3 caracteres");
+      return;
+    }
+    
     alert("Consulta enviada (acá podés integrar EmailJS).");
     setEnviado(true);
     setTimeout(() => {
@@ -44,16 +64,29 @@ export default function ContactForm() {
             >
               {/* Nombre */}
               <label className="block mb-6">
-                <span className="text-gray-300 font-medium block mb-2">Nombre</span>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-300 font-medium">Nombre</span>
+                  <span className="text-sm text-gray-500">{form.nombre.length}/30</span>
+                </div>
                 <input
                   name="nombre"
                   value={form.nombre}
                   required
-                  className="w-full p-3 bg-gray-900/50 text-gray-200 border border-gray-700 rounded-lg
-                  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition"
+                  maxLength="30"
+                  className={`w-full p-3 bg-gray-900/50 text-gray-200 border rounded-lg outline-none transition ${
+                    form.nombre.trim().length > 0 && form.nombre.trim().length < 3
+                      ? "border-red-500 focus:ring-2 focus:ring-red-500/20"
+                      : "border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  }`}
                   placeholder="Tu nombre completo"
                   onChange={handleChange}
                 />
+                <div className="flex justify-between items-start mt-1">
+                  <p className="text-xs text-gray-500">Solo letras, espacios. Mínimo 3 caracteres</p>
+                  {form.nombre.trim().length > 0 && form.nombre.trim().length < 3 && (
+                    <p className="text-xs text-red-400">Mínimo 3 caracteres</p>
+                  )}
+                </div>
               </label>
 
               {/* Email */}
