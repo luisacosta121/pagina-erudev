@@ -5,7 +5,7 @@ export default function Hero() {
         <div className="grid md:grid-cols-2 gap-12 items-center">
           
           {/* Contenido */}
-          <div className="space-y-6">
+          <div className="space-y-6 animate-slideInLeft">
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full">
               <span className="text-blue-400 text-lg font-semibold">Transformación Digital para Industria</span>
             </div>
@@ -44,7 +44,7 @@ export default function Hero() {
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
               
               {/* Ícono */}
-              <div className="absolute inset-0 flex items-center justify-center">
+              <div className="absolute inset-0 flex items-center justify-center animate-float">
                 <svg className="w-48 h-48 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
