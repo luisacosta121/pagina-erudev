@@ -25,9 +25,9 @@ export default function Navbar({ setPage }) {
           onClick={handleLogoClick}
           className="flex items-center gap-3 group cursor-pointer hover:opacity-90 transition"
         >
-          <img src="/src/assets/logoBlanco.svg" alt="EruDev Logo" className="w-12 h-12" />
+          <img src="/src/assets/logoBlanco.svg" alt="EruDev Logo" className="w20 h-20" />
           <span className="text-2xl font-bold text-white tracking-wide group-hover:text-blue-400 transition">
-            EruDev
+            ERUDEV
           </span>
         </div>
 

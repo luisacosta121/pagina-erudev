@@ -16,9 +16,33 @@ export default function ContactForm() {
       // Limitar a 30 caracteres
       onlyLetters = onlyLetters.slice(0, 30);
       setForm({ ...form, [name]: onlyLetters });
-    } else {
+    } 
+    // Validación para el email: máximo 30 caracteres
+    else if (name === "email") {
+      const email = value.slice(0, 45);
+      setForm({ ...form, [name]: email });
+    }
+    // Validación para la empresa: permite letras, números, símbolos; máximo 40 caracteres, sin espacios consecutivos
+    else if (name === "empresa") {
+      // Remover espacios consecutivos
+      let empresa = value.replace(/\s{2,}/g, " ");
+      // Limitar a 40 caracteres
+      empresa = empresa.slice(0, 40);
+      setForm({ ...form, [name]: empresa });
+    }
+    // Validación para el mensaje: máximo 500 caracteres, permite todo
+    else if (name === "mensaje") {
+      const mensaje = value.slice(0, 500);
+      setForm({ ...form, [name]: mensaje });
+    }
+    else {
       setForm({ ...form, [name]: value });
     }
+  };
+
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   };
 
   const handleSubmit = (e) => {
@@ -27,6 +51,29 @@ export default function ContactForm() {
     // Validar que el nombre tenga mínimo 3 caracteres
     if (form.nombre.trim().length < 3) {
       alert("El nombre debe tener mínimo 3 caracteres");
+      return;
+    }
+    
+    // Validar que el email tenga formato válido
+    if (!validateEmail(form.email)) {
+      alert("Por favor ingresa un email válido (ej: usuario@ejemplo.com)");
+      return;
+    }
+    
+    // Validar que la empresa tenga mínimo 3 caracteres (si la proporciona)
+    if (form.empresa.trim().length > 0 && form.empresa.trim().length < 3) {
+      alert("El nombre de empresa debe tener mínimo 3 caracteres");
+      return;
+    }
+    
+    // Validar que el mensaje tenga entre 10 y 500 caracteres
+    if (form.mensaje.trim().length < 10) {
+      alert("El mensaje debe tener mínimo 10 caracteres");
+      return;
+    }
+    
+    if (form.mensaje.trim().length > 500) {
+      alert("El mensaje no puede exceder 500 caracteres");
       return;
     }
     
@@ -91,45 +138,89 @@ export default function ContactForm() {
 
               {/* Email */}
               <label className="block mb-6">
-                <span className="text-gray-300 font-medium block mb-2">Email</span>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-300 font-medium">Email</span>
+                  <span className="text-sm text-gray-500">{form.email.length}/45</span>
+                </div>
                 <input
                   type="email"
                   name="email"
                   value={form.email}
                   required
-                  className="w-full p-3 bg-gray-900/50 text-gray-200 border border-gray-700 rounded-lg
-                  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition"
-                  placeholder="tu@email.com"
+                  maxLength="45"
+                  className={`w-full p-3 bg-gray-900/50 text-gray-200 border rounded-lg outline-none transition ${
+                    form.email.length > 0 && !validateEmail(form.email)
+                      ? "border-red-500 focus:ring-2 focus:ring-red-500/20"
+                      : "border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  }`}
+                  placeholder="Tu email"
                   onChange={handleChange}
                 />
+                <div className="flex justify-between items-start mt-1">
+                  <p className="text-xs text-gray-500">Formato: usuario@dominio.com</p>
+                  {form.email.length > 0 && !validateEmail(form.email) && (
+                    <p className="text-xs text-red-400">Email inválido</p>
+                  )}
+                </div>
               </label>
 
               {/* Empresa */}
               <label className="block mb-6">
-                <span className="text-gray-300 font-medium block mb-2">Empresa</span>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-300 font-medium">Empresa</span>
+                  <span className="text-sm text-gray-500">{form.empresa.length}/40</span>
+                </div>
                 <input
                   name="empresa"
                   value={form.empresa}
-                  className="w-full p-3 bg-gray-900/50 text-gray-200 border border-gray-700 rounded-lg
-                  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition"
+                  maxLength="40"
+                  className={`w-full p-3 bg-gray-900/50 text-gray-200 border rounded-lg outline-none transition ${
+                    form.empresa.trim().length > 0 && form.empresa.trim().length < 3
+                      ? "border-red-500 focus:ring-2 focus:ring-red-500/20"
+                      : "border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  }`}
                   placeholder="Nombre de tu empresa"
                   onChange={handleChange}
                 />
+                <div className="flex justify-between items-start mt-1">
+                  <p className="text-xs text-gray-500">Mínimo 3 caracteres. Sin espacios consecutivos</p>
+                  {form.empresa.trim().length > 0 && form.empresa.trim().length < 3 && (
+                    <p className="text-xs text-red-400">Mínimo 3 caracteres</p>
+                  )}
+                </div>
               </label>
 
               {/* Mensaje */}
               <label className="block mb-8">
-                <span className="text-gray-300 font-medium block mb-2">Mensaje / Descripción del proyecto</span>
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-gray-300 font-medium">Mensaje / Descripción del proyecto</span>
+                  <span className={`text-sm ${form.mensaje.length < 10 || form.mensaje.length > 500 ? 'text-red-400' : 'text-gray-500'}`}>
+                    {form.mensaje.length}/500
+                  </span>
+                </div>
                 <textarea
                   name="mensaje"
                   value={form.mensaje}
                   required
                   rows="5"
-                  className="w-full p-3 bg-gray-900/50 text-gray-200 border border-gray-700 rounded-lg
-                  focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition resize-none"
+                  maxLength="500"
+                  className={`w-full p-3 bg-gray-900/50 text-gray-200 border rounded-lg outline-none transition resize-none ${
+                    form.mensaje.length > 0 && (form.mensaje.length < 10 || form.mensaje.length > 500)
+                      ? "border-red-500 focus:ring-2 focus:ring-red-500/20"
+                      : "border-gray-700 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
+                  }`}
                   placeholder="Cuéntanos qué necesitas automatizar o mejorar en tu industria..."
                   onChange={handleChange}
                 />
+                <div className="flex justify-between items-start mt-1">
+                  <p className="text-xs text-gray-500">Mínimo 10, máximo 500 caracteres</p>
+                  {form.mensaje.length > 0 && form.mensaje.length < 10 && (
+                    <p className="text-xs text-red-400">Mínimo 10 caracteres</p>
+                  )}
+                  {form.mensaje.length > 500 && (
+                    <p className="text-xs text-red-400">Máximo 500 caracteres</p>
+                  )}
+                </div>
               </label>
 
               {/* Botón */}
