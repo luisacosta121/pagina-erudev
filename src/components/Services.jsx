@@ -123,7 +123,7 @@ export default function Services() {
 
         {/* CTA */}
         <div className="text-center mt-16">
-          <p className="text-gray-400 mb-6">¿No encontraste lo que buscas?</p>
+          <p className="text-gray-400 mb-6">¿No encontraste lo que buscabas?</p>
           <a
             href="#contacto"
             className="inline-block border-2 border-blue-500 text-blue-400 px-8 py-4 rounded-xl font-semibold
