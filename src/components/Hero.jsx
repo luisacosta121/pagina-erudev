@@ -1,9 +1,9 @@
 export default function Hero() {
   return (
-    <section className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-20 pt-32 overflow-hidden">
+    <section className="bg-gradient-to-b from-gray-900 via-gray-800 to-gray-900 py-12 pt-32 overflow-hidden">
       <div className="max-w-6xl mx-auto px-6">
         <div className="grid md:grid-cols-2 gap-12 items-center">
-          
+
           {/* Contenido */}
           <div className="space-y-6 animate-slideInLeft">
             <div className="inline-block px-4 py-2 bg-blue-500/10 border border-blue-500/30 rounded-full">
@@ -15,7 +15,7 @@ export default function Hero() {
             </h1>
 
             <p className="text-xl text-gray-300 leading-relaxed">
-              Impulsamos tu negocio con tecnología. Desarrollamos aplicaciones industriales a medida para mejorar procesos, reducir costos y aumentar la eficiencia operativa. Además, diseñamos páginas web modernas, rápidas y profesionales para que tu empresa destaque y atraiga más clientes. Soluciones integrales para que puedas enfocarte en crecer.
+              Somos especialistas en <strong>automatización industrial</strong> y <strong>desarrollo web profesional</strong>. Creamos soluciones tecnológicas a medida para mejorar procesos, reducir costos y aumentar la eficiencia operativa de tu industria. Desde control de producción hasta aplicaciones web modernas, impulsamos tu transformación digital.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -26,14 +26,8 @@ export default function Hero() {
               >
                 Solicitar presupuesto
               </a>
-              
-              <a
-                href="#servicios"
-                className="inline-block border-2 border-gray-400 text-gray-300 px-8 py-4 rounded-xl font-semibold 
-                hover:border-blue-400 hover:text-blue-400 transition-all duration-300"
-              >
-                Ver servicios
-              </a>
+
+
             </div>
           </div>
 
@@ -42,7 +36,7 @@ export default function Hero() {
             <div className="relative w-80 h-80">
               {/* Círculo animado */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
-              
+
               {/* Ícono */}
               <div className="absolute inset-0 flex items-center justify-center animate-float">
                 <svg className="w-48 h-48 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

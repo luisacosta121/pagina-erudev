@@ -1,7 +1,23 @@
 {
-  "name": "mipagina",
+  "name": "erudev",
+  "description": "EruDev - Soluciones de automatización industrial y desarrollo web profesional",
+  "author": "EruDev",
+  "license": "MIT",
+  "homepage": "https://erudev.com.ar",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luisacosta121/pagina-erudev"
+  },
+  "keywords": [
+    "automatización industrial",
+    "desarrollo web",
+    "software a medida",
+    "transformación digital",
+    "control de procesos",
+    "aplicaciones web"
+  ],
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,6 +26,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@formspree/react": "^3.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

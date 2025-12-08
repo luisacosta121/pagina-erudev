@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+Sitemap: https://erudev.com.ar/sitemap.xml
+
+# Throttle requests for slower servers
+Request-rate: 1 request per 1 second

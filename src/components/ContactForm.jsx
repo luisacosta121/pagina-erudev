@@ -1,36 +1,38 @@
 import { useState } from "react";
+import { useForm } from "@formspree/react";
 
 export default function ContactForm() {
   const [form, setForm] = useState({ nombre: "", email: "", empresa: "", mensaje: "" });
-  const [enviado, setEnviado] = useState(false);
+  const [toasts, setToasts] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [_state, handleFormspreeSubmit] = useForm("xgvglzpe");
+
+  const showToast = (message, type = "error") => {
+    const id = Date.now();
+    setToasts(prev => [...prev, { id, message, type }]);
+    setTimeout(() => {
+      setToasts(prev => prev.filter(t => t.id !== id));
+    }, 4000);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     
-    // Validación para el nombre: solo letras y espacios, máximo 30 caracteres
     if (name === "nombre") {
-      // Remover caracteres no válidos
       let onlyLetters = value.replace(/[^a-záéíóúàèìòùäëïöüñ\s]/gi, "");
-      // Remover espacios consecutivos
       onlyLetters = onlyLetters.replace(/\s{2,}/g, " ");
-      // Limitar a 30 caracteres
       onlyLetters = onlyLetters.slice(0, 30);
       setForm({ ...form, [name]: onlyLetters });
     } 
-    // Validación para el email: máximo 30 caracteres
     else if (name === "email") {
       const email = value.slice(0, 45);
       setForm({ ...form, [name]: email });
     }
-    // Validación para la empresa: permite letras, números, símbolos; máximo 40 caracteres, sin espacios consecutivos
     else if (name === "empresa") {
-      // Remover espacios consecutivos
       let empresa = value.replace(/\s{2,}/g, " ");
-      // Limitar a 40 caracteres
       empresa = empresa.slice(0, 40);
       setForm({ ...form, [name]: empresa });
     }
-    // Validación para el mensaje: máximo 500 caracteres, permite todo
     else if (name === "mensaje") {
       const mensaje = value.slice(0, 500);
       setForm({ ...form, [name]: mensaje });
@@ -45,48 +47,56 @@ export default function ContactForm() {
     return emailRegex.test(email);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validar que el nombre tenga mínimo 3 caracteres
     if (form.nombre.trim().length < 3) {
-      alert("El nombre debe tener mínimo 3 caracteres");
+      showToast("El nombre debe tener mínimo 3 caracteres", "error");
       return;
     }
     
-    // Validar que el email tenga formato válido
     if (!validateEmail(form.email)) {
-      alert("Por favor ingresa un email válido (ej: usuario@ejemplo.com)");
+      showToast("Por favor ingresa un email válido", "error");
       return;
     }
     
-    // Validar que la empresa tenga mínimo 3 caracteres (si la proporciona)
     if (form.empresa.trim().length > 0 && form.empresa.trim().length < 3) {
-      alert("El nombre de empresa debe tener mínimo 3 caracteres");
+      showToast("El nombre de empresa debe tener mínimo 3 caracteres", "error");
       return;
     }
     
-    // Validar que el mensaje tenga entre 10 y 500 caracteres
     if (form.mensaje.trim().length < 10) {
-      alert("El mensaje debe tener mínimo 10 caracteres");
+      showToast("El mensaje debe tener mínimo 10 caracteres", "error");
       return;
     }
     
     if (form.mensaje.trim().length > 500) {
-      alert("El mensaje no puede exceder 500 caracteres");
+      showToast("El mensaje no puede exceder 500 caracteres", "error");
       return;
     }
-    
-    alert("Consulta enviada (acá podés integrar EmailJS).");
-    setEnviado(true);
-    setTimeout(() => {
+
+    setLoading(true);
+    try {
+      const formData = new FormData();
+      formData.append("nombre", form.nombre);
+      formData.append("email", form.email);
+      formData.append("empresa", form.empresa || "No especificada");
+      formData.append("message", form.mensaje);
+
+      await handleFormspreeSubmit(formData);
+      
+      showToast("¡Consulta enviada exitosamente!", "success");
       setForm({ nombre: "", email: "", empresa: "", mensaje: "" });
-      setEnviado(false);
-    }, 3000);
+    } catch (error) {
+      showToast("Error al enviar. Intenta nuevamente.", "error");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section id="contacto" className="py-24 bg-gradient-to-b from-gray-800 to-gray-900">
+    <section id="contacto" className="py-12 bg-gradient-to-b from-gray-800 to-gray-900">
       <div className="max-w-4xl mx-auto px-6">
         
         {/* Encabezado */}
@@ -226,12 +236,12 @@ export default function ContactForm() {
               {/* Botón */}
               <button
                 type="submit"
-                disabled={enviado}
+                disabled={loading}
                 className="w-full bg-blue-600 text-white py-4 rounded-lg font-semibold text-lg
-                hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/30 disabled:bg-green-600 disabled:cursor-default
+                hover:bg-blue-500 hover:shadow-lg hover:shadow-blue-500/30 disabled:bg-gray-600 disabled:cursor-not-allowed
                 transition-all duration-300"
               >
-                {enviado ? "✓ Enviado" : "Enviar consulta"}
+                {loading ? "Enviando..." : "Enviar consulta"}
               </button>
             </form>
           </div>
@@ -278,6 +288,28 @@ export default function ContactForm() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Toast notifications */}
+      <div className="fixed bottom-6 right-6 space-y-3 z-50">
+        {toasts.map((toast) => (
+          <div
+            key={toast.id}
+            className={`p-4 rounded-lg text-white font-medium animate-slideInUp flex items-center justify-between gap-4 min-w-[300px] shadow-lg ${
+              toast.type === "success" 
+                ? "bg-green-600 border border-green-500/50" 
+                : "bg-red-600 border border-red-500/50"
+            }`}
+          >
+            <span>{toast.message}</span>
+            <button
+              onClick={() => setToasts(prev => prev.filter(t => t.id !== toast.id))}
+              className="text-white/70 hover:text-white transition"
+            >
+              ✕
+            </button>
+          </div>
+        ))}
       </div>
     </section>
   );

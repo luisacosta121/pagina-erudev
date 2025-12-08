@@ -5,6 +5,8 @@ export default function Services() {
   const ref = useRef(null);
 
   useEffect(() => {
+    const currentRef = ref.current;
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -14,13 +16,13 @@ export default function Services() {
       { threshold: 0.1 }
     );
 
-    if (ref.current) {
-      observer.observe(ref.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -72,7 +74,7 @@ export default function Services() {
   ];
 
   return (
-    <section id="servicios" className="py-24 bg-gradient-to-b from-gray-900 via-gray-850 to-gray-800">
+    <section id="servicios" className="py-12 bg-gradient-to-b from-gray-900 via-gray-850 to-gray-800">
       <div className="max-w-6xl mx-auto px-6">
         
         {/* Encabezado */}
