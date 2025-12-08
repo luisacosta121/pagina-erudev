@@ -45,18 +45,6 @@ export default function Navbar({ setPage }) {
           ))}
         </div>
 
-        {/* CTA Desktop */}
-        <div className="hidden md:flex">
-          <a
-            href="#contacto"
-            className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-2.5 rounded-xl font-semibold 
-            hover:from-blue-500 hover:to-blue-600 hover:shadow-lg hover:shadow-blue-500/40 hover:-translate-y-0.5 
-            transition-all duration-300"
-          >
-            Presupuesto
-          </a>
-        </div>
-
         {/* Hamburger Mobile */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
