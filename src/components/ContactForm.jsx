@@ -102,10 +102,10 @@ export default function ContactForm() {
         {/* Encabezado */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Contáctanos
+            Contáctanos para tu Proyecto de Desarrollo Web o Software Industrial
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Cuéntanos sobre tu proyecto y nos pondremos en contacto en las próximas 24 horas
+            Nuestro equipo en Buenos Aires está listo para escuchar tu idea y ofrecerte una solución a medida
           </p>
         </div>
 

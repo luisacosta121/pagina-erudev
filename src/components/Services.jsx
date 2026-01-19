@@ -80,10 +80,10 @@ export default function Services() {
         {/* Encabezado */}
         <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Nuestros Servicios
+            Nuestros Servicios de Desarrollo Web y Software Industrial
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Soluciones integrales para transformar tu industria y llevar tu negocio al siguiente nivel
+            Soluciones integrales de automatización y desarrollo web para transformar tu industria en Buenos Aires y toda Argentina
           </p>
         </div>
 

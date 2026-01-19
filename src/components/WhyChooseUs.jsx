@@ -45,10 +45,10 @@ export default function WhyChooseUs() {
         {/* Encabezado */}
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            ¿Por qué elegir EruDev?
+            ¿Por qué elegir EruDev como tu socio de desarrollo web y software?
           </h2>
           <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-            Te ofrecemos más que código. Ofrecemos soluciones que transforman tu negocio
+            Especialistas en automatización industrial y soluciones digitales que transforman negocios en Buenos Aires y Argentina
           </p>
         </div>
 
